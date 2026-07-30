@@ -399,40 +399,42 @@ Each agent focuses on one domain and collaborates with other agents through the 
 ```mermaid
 flowchart TD
 
-User
+    User([👤 User])
 
-↓
+    Coordinator["🎯 Coordinator Agent"]
 
-Coordinator
+    Portfolio["📊 Portfolio Agent"]
 
-Coordinator --> PortfolioAgent
+    Market["📈 Market Agent"]
 
-Coordinator --> MarketAgent
+    Risk["⚠️ Risk Agent"]
 
-Coordinator --> RiskAgent
+    News["📰 News Agent"]
 
-Coordinator --> NewsAgent
+    Recommendation["💡 Recommendation Agent"]
 
-Coordinator --> RecommendationAgent
+    Explanation["🧠 Explanation Agent"]
 
-Coordinator --> ExplanationAgent
+    Response["💬 AI Response"]
 
-PortfolioAgent --> MCP
+    User --> Coordinator
 
-MarketAgent --> MCP
+    Coordinator --> Portfolio
+    Coordinator --> Market
+    Coordinator --> Risk
+    Coordinator --> News
 
-RiskAgent --> MCP
+    Portfolio --> Recommendation
+    Market --> Recommendation
+    Risk --> Recommendation
+    News --> Recommendation
 
-NewsAgent --> MCP
+    Recommendation --> Explanation
 
-RecommendationAgent --> MCP
+    Explanation --> Response
 
-ExplanationAgent --> Response
-
-Response --> User
-
+    Response --> User
 ```
-
 ---
 
 # 🧠 AI Agent Responsibilities
@@ -519,30 +521,38 @@ Instead of directly accessing databases, AI agents invoke secure backend tools t
 ```mermaid
 flowchart TD
 
-Agent
+    Agent["🤖 AI Agent"]
 
-↓
+    MCP["🔧 MCP Server"]
 
-MCP
+    PortfolioTool["Portfolio Tool"]
 
-MCP --> PortfolioTool
+    MarketTool["Market Tool"]
 
-MCP --> MarketTool
+    AnalyticsTool["Analytics Tool"]
 
-MCP --> AnalyticsTool
+    ReportTool["Report Tool"]
 
-MCP --> ReportTool
+    PortfolioService["Portfolio Service"]
 
-PortfolioTool --> PortfolioService
+    MarketService["Market Service"]
 
-MarketTool --> MarketService
+    AnalyticsService["Analytics Service"]
 
-AnalyticsTool --> AnalyticsService
+    ReportService["Report Service"]
 
-ReportTool --> ReportService
+    Agent --> MCP
 
+    MCP --> PortfolioTool
+    MCP --> MarketTool
+    MCP --> AnalyticsTool
+    MCP --> ReportTool
+
+    PortfolioTool --> PortfolioService
+    MarketTool --> MarketService
+    AnalyticsTool --> AnalyticsService
+    ReportTool --> ReportService
 ```
-
 ---
 
 # ⚙ MCP Tool Categories
@@ -595,24 +605,36 @@ Instead of tightly coupling services together, services communicate asynchronous
 ```mermaid
 flowchart LR
 
-Portfolio
+    Portfolio["Portfolio Service"]
 
-↓
+    Market["Market Service"]
 
-Kafka
+    Kafka["Apache Kafka"]
 
-Kafka --> Notification
+    Analytics["Analytics Service"]
 
-Kafka --> Analytics
+    Notification["Notification Service"]
 
-Kafka --> AI
+    AI["AI Service"]
 
-Kafka --> Report
+    Report["Report Service"]
 
-Kafka --> Audit
+    Audit["Audit Service"]
 
+    Portfolio --> Kafka
+
+    Market --> Kafka
+
+    Kafka --> Analytics
+
+    Kafka --> Notification
+
+    Kafka --> AI
+
+    Kafka --> Report
+
+    Kafka --> Audit
 ```
-
 ---
 
 # 📬 Important Events
@@ -636,58 +658,52 @@ Examples include:
 ```mermaid
 flowchart TD
 
-User
+    User([Investor])
 
-↓
+    Dashboard["React Dashboard"]
 
-Dashboard
+    Gateway["API Gateway"]
 
-↓
+    Portfolio["Portfolio Service"]
 
-API Gateway
+    Kafka["Kafka"]
 
-↓
+    Analytics["Analytics Service"]
 
-Portfolio Service
+    AI["AI Service"]
 
-↓
+    Coordinator["Coordinator Agent"]
 
-Kafka Event
+    MCP["MCP Server"]
 
-↓
+    Market["Market Service"]
 
-Analytics
+    Recommendation["Recommendation Engine"]
 
-↓
+    User --> Dashboard
 
-AI Service
+    Dashboard --> Gateway
 
-↓
+    Gateway --> Portfolio
 
-Coordinator Agent
+    Portfolio --> Kafka
 
-↓
+    Kafka --> Analytics
 
-MCP
+    Analytics --> AI
 
-↓
+    AI --> Coordinator
 
-Market Data
+    Coordinator --> MCP
 
-↓
+    MCP --> Market
 
-Recommendation
+    Market --> Recommendation
 
-↓
+    Recommendation --> Dashboard
 
-Dashboard
-
-↓
-
-User
-
+    Dashboard --> User
 ```
-
 ---
 
 # 🌐 Service Communication

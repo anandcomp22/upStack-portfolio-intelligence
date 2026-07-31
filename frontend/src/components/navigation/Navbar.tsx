@@ -1,12 +1,9 @@
-import {
-  Search,
-  Bell,
-} from "lucide-react";
+import SearchBar from "./SearchBar";
+import NotificationButton from "./NotificationButton";
 import ThemeToggle from "@/components/common/ThemeToggle";
-
+import UserMenu from "./UserMenu";
 
 export default function Navbar() {
-
   return (
     <header
       className="
@@ -15,85 +12,25 @@ export default function Navbar() {
         items-center
         justify-between
         border-b
+        bg-background
         px-6
       "
     >
-
-      {/* Search */}
-
-      <div
-        className="
-          flex
-          w-80
-          items-center
-          gap-2
-          rounded-lg
-          border
-          px-3
-          py-2
-        "
-      >
-
-        <Search size={18} />
-
-        <input
-          placeholder="Search..."
-          className="
-            w-full
-            bg-transparent
-            outline-none
-          "
-        />
-
-      </div>
-
-
-      {/* Actions */}
+      <SearchBar />
 
       <div
         className="
           flex
           items-center
-          gap-5
+          gap-4
         "
       >
-
-        <Bell
-          size={20}
-          className="cursor-pointer"
-        />
-
+        <NotificationButton />
 
         <ThemeToggle />
 
-
-        <div
-          className="
-            flex
-            items-center
-            gap-2
-          "
-        >
-
-          <div
-            className="
-              h-8
-              w-8
-              rounded-full
-              bg-primary
-            "
-          />
-
-
-          <span>
-            User
-          </span>
-
-        </div>
-
+        <UserMenu />
       </div>
-
-
     </header>
   );
 }

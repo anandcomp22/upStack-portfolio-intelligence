@@ -1,53 +1,72 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import DashboardLayout from "../layouts/DashboardLayout";
+import AuthLayout from "../layouts/AuthLayout";
+
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
+import NotFound from "./NotFound";
 
 import DashboardPage from "@/features/dashboard/pages/DashboardPage";
+import LoginPage from "@/features/auth/pages/LoginPage";
+import RegisterPage from "@/features/auth/pages/RegisterPage";
 
+import PortfolioPage from "@/features/portfolio/pages/PortfolioPage";
+import MarketPage from "@/features/market/pages/MarketPage";
+import AIPage from "@/features/ai/pages/AIPage";
+import ReportsPage from "@/features/reports/pages/ReportsPage";
+import SettingsPage from "@/features/settings/pages/SettingsPage";
 
 export default function AppRouter() {
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          element={<DashboardLayout />}
-        >
-          <Route
-            path="/"
-            element={<DashboardPage />}
-          />
 
-          <Route
-            path="/portfolio"
-            element={<div>Portfolio Page</div>}
-          />
-
-          <Route
-            path="/market"
-            element={<div>Market Page</div>}
-          />
-
-          <Route
-            path="/ai"
-            element={<div>AI Copilot Page</div>}
-          />
-
-          <Route
-            path="/reports"
-            element={<div>Reports Page</div>}
-          />
-
-          <Route
-            path="/settings"
-            element={<div>Settings Page</div>}
-          />
+        {/* Public Routes */}
+        <Route element={<PublicRoute />}>
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Route>
         </Route>
+
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<DashboardLayout />}>
+
+            <Route path="/" element={<DashboardPage />} />
+
+            <Route
+              path="/portfolio"
+              element={<PortfolioPage />}
+            />
+
+            <Route
+              path="/market"
+              element={<MarketPage />}
+            />
+
+            <Route
+              path="/ai"
+              element={<AIPage />}
+            />
+
+            <Route
+              path="/reports"
+              element={<ReportsPage />}
+            />
+
+            <Route
+              path="/settings"
+              element={<SettingsPage />}
+            />
+
+          </Route>
+        </Route>
+
+        {/* 404 */}
+        <Route path="*" element={<NotFound />} />
+
       </Routes>
     </BrowserRouter>
   );

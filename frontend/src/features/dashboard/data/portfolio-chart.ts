@@ -1,9 +1,9 @@
 export const portfolioPerformance = [
-  { month: "Jan", value: 820000 },
-  { month: "Feb", value: 850000 },
-  { month: "Mar", value: 910000 },
-  { month: "Apr", value: 940000 },
-  { month: "May", value: 990000 },
-  { month: "Jun", value: 1080000 },
-  { month: "Jul", value: 1250000 },
+  { month: "Jan", portfolio: 1850000, benchmark: 1800000 },
+  { month: "Feb", portfolio: 1920000, benchmark: 1830000 },
+  { month: "Mar", portfolio: 1890000, benchmark: 1810000 },
+  { month: "Apr", portfolio: 2050000, benchmark: 1900000 },
+  { month: "May", portfolio: 2180000, benchmark: 1980000 },
+  { month: "Jun", portfolio: 2320000, benchmark: 2040000 },
+  { month: "Jul", portfolio: 2485400, benchmark: 2120000 },
 ];

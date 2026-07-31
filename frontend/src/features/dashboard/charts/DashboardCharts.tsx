@@ -1,20 +1,18 @@
-import AllocationChart from "./AllocationChart";
 import PortfolioChart from "./PortfolioChart";
+import AllocationChart from "./AllocationChart";
 
 export default function DashboardCharts() {
   return (
-    <section
-      className="
-        grid
-        gap-6
-        lg:grid-cols-3
-      "
-    >
-      <div className="lg:col-span-2">
+    <section className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+      {/* Portfolio Performance (8 cols on lg) */}
+      <div className="lg:col-span-8">
         <PortfolioChart />
       </div>
 
-      <AllocationChart />
+      {/* Asset Allocation (4 cols on lg) */}
+      <div className="lg:col-span-4">
+        <AllocationChart />
+      </div>
     </section>
   );
 }

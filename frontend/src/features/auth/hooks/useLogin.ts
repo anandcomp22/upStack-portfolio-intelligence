@@ -1,27 +1,37 @@
-import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { authApi } from "../api/authApi";
-import { authStorage } from "../services/authStorage";
+import { toast } from "sonner";
 import { useAuthStore } from "../store/authStore";
+import type { LoginFormValues } from "../schemas/login.schema";
 
 export function useLogin() {
   const navigate = useNavigate();
-
   const login = useAuthStore((state) => state.login);
+  const [isPending, setIsPending] = useState(false);
 
-  return useMutation({
-    mutationFn: authApi.login,
+  const mutate = async (values: LoginFormValues) => {
+    setIsPending(true);
+    // Simulate network latency for natural UX
+    await new Promise((res) => setTimeout(res, 600));
 
-    onSuccess: ({ data }) => {
-      authStorage.setTokens(
-        data.accessToken,
-        data.refreshToken
-      );
+    const mockUser = {
+      id: `usr_${Math.random().toString(36).substring(2, 9)}`,
+      fullName: values.email.split("@")[0].replace(".", " "),
+      email: values.email,
+      role: "Portfolio Manager",
+      riskProfile: "Growth Strategy",
+    };
 
-      login(data.user, data.accessToken);
+    login(mockUser, "jwt_mock_token_upstack");
+    setIsPending(false);
+    toast.success("Welcome back!", {
+      description: `Signed in as ${values.email}`,
+    });
+    navigate("/");
+  };
 
-      navigate("/");
-    },
-  });
+  return {
+    mutate,
+    isPending,
+  };
 }
